@@ -1,4 +1,4 @@
-# app-template.py
+# main-app.py [template]
 # is a template for the app.py file that will be used to build the app
 
 import flet as ft
