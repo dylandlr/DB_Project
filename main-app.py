@@ -38,7 +38,7 @@ def DeliverPage(page: ft.Page):
 
 #def retrieve(order):
     #sql logic to retrieve the orders from the database
-    return order
+    #return order
 
 #def load(order):
     # next step in the app confirms that the order has been loaded and ready to be delivered
