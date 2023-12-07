@@ -106,16 +106,15 @@ def pickOrderView(page: ft.Page):
             numberOfRows = numberOfRows + 1
                    
             
- page.views.append(
+    page.views.append(
         View(
             route='/pickItems',
             controls=[
               dataTable,
-              ElevatedButton(text="Submit",  onclick=lambda :test()),
-              AppBar(title=Text('Update Order'), bgcolor= 'BLUE'),
-              ElevatedButton(text='Cancel', onclick=lambda : page.go('/main'))
+              ElevatedButton(text="Submit",  onclick=lambda :test())
             ] 
         )
+    )
     
     cursor.close()
     cnx.close()
