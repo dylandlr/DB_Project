@@ -5,7 +5,7 @@ from mainMenu import mainMenuView
 from selectOrderAssemble import selectOrderAssembleView
 from PickOrder import pickOrderView
 import login
-
+from deliveryPage import deliveryPage
 
 def main(page: ft.Page):
     page.title = 'Curbside'
@@ -19,7 +19,10 @@ def main(page: ft.Page):
             mainMenuView(page)    
 
         if page.route == '/selectOrder':
-            selectOrderAssembleView(page)            
+            selectOrderAssembleView(page)
+
+        if page.route == '/delivery':
+            deliveryPage(page)
                    
 #This is the page for assembling the items for the order
         if page.route == '/pickItems':
