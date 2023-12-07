@@ -8,12 +8,13 @@ import login
 def deliveryPage(page: ft.Page):
     page.title = "Delivery"
     # This function needs the employeeID to be passed to either the orderID tuple, or the execute parameters. I couldn't test it because the login broke
-    def deliver(p, x):
-        orderID = [(x)]
-        cnx = mysql.connector.connect(user='root', password='', host='localhost', database='curbside')
+    def setDeliver(p, x):
+        credentials = [str(login.employeeID), str(x)]
+        cnx = mysql.connector.connect(user='root', password='bandana', host='localhost', database='curbside')
         cursor = cnx.cursor()
         query = "UPDATE orderDetails SET state = 'Delivered', delivererEmployeeID = %s WHERE OrderID = %s"
-        cursor.execute(query, orderID)
+        cursor.execute(query, credentials)
+        print("this button works")
     
     
     #Build DataTable to be displayed
@@ -31,7 +32,7 @@ def deliveryPage(page: ft.Page):
     
     #Method to load data into datatable
     def addNewData(p, orderID, timePlaced, laneNum, phoneNum):
-        button = IconButton(icon=icons.DELIVERY_DINING_ROUNDED, on_click=lambda _: deliver(p, orderID))
+        button = IconButton(icon=icons.DELIVERY_DINING_ROUNDED, on_click=lambda _: setDeliver(p, orderID))
         dataTable.rows.append(
             DataRow(
                 cells=[
@@ -45,9 +46,9 @@ def deliveryPage(page: ft.Page):
         )
     
     #gets SQL data and loads it into datable using addNewData method
-    cnx = mysql.connector.connect(user='root', password='', host='localhost', database='curbside')
+    cnx = mysql.connector.connect(user='root', password='bandana', host='localhost', database='curbside')
     cursor = cnx.cursor()
-    query = ("SELECT OrderID, timePlaced, laneNum, phone FROM OrderDetails, Customer Where OrderDetails.CustID = Customer.CustID and orderDetails.storeID = %s and orderDetails.state = 'Prepared' order by orderDetails.timePlaced asc")
+    query = ("SELECT OrderID, timePlaced, laneNum, phone FROM OrderDetails, Customer Where OrderDetails.CustID = Customer.CustID and orderDetails.storeID = %s and orderDetails.state = 'Assembled' order by orderDetails.timePlaced asc")
     # query = ("SELECT * FROM orderDetails WHERE (storeID = (%s) and state = 'Incomplete') order by timePlaced asc")
     tuple = [(login.storeID)]
     cursor.execute(query, tuple)
@@ -62,7 +63,8 @@ def deliveryPage(page: ft.Page):
         View(
             route='/delivery',
             controls=[
-                dataTable
+                dataTable,
+                ft.AppBar(title=Text('Delivery'), bgcolor= 'BLUE')
             ]
             )  
      )
