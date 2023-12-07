@@ -1,5 +1,5 @@
 import flet as ft
-from flet import View, RouteChangeEvent, Text, ElevatedButton, Page, IconButton, icons
+from flet import View, RouteChangeEvent, Text, ElevatedButton, Page, IconButton, icons, Appbar
 from flet import DataRow, DataCell, DataTable
 import mysql.connector
 import login
@@ -106,14 +106,16 @@ def pickOrderView(page: ft.Page):
             numberOfRows = numberOfRows + 1
                    
             
-    page.views.append(
+ page.views.append(
         View(
             route='/pickItems',
             controls=[
               dataTable,
-              ElevatedButton(text="Submit",  on_click=lambda _:test())
+              ElevatedButton(text="Submit",  onclick=lambda :test()),
+              AppBar(title=Text('Update Order'), bgcolor= 'BLUE'),
+              ElevatedButton(text='Cancel', onclick=lambda : page.go('/main'))
             ] 
-        )  
-    )
+        )
+    
     cursor.close()
     cnx.close()
